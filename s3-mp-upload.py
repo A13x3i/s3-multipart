@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 import argparse
 from cStringIO import StringIO
 import logging
@@ -95,8 +95,9 @@ def main(src, dest, num_processes=2, split=50, force=False, reduced_redundancy=F
     if split_rs.scheme != "s3":
         raise ValueError("'%s' is not an S3 url" % dest)
 
-    s3 = boto.connect_s3(calling_format=OrdinaryCallingFormat())
+    s3 = boto.connect_s3()
     s3.is_secure = secure
+    print 'My debug shit: '+split_rs.netloc+'<'
     bucket = s3.lookup(split_rs.netloc)
     if bucket == None:
         raise ValueError("'%s' is not a valid bucket" % split_rs.netloc)
